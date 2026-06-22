@@ -1,0 +1,10 @@
+# Personal key dates (add-on config)
+
+Copy this file to `/share/daily_briefing/key_dates.md` on first install.
+Non-standard dates to flag — birthdays, anniversaries, etc. Standard US
+holidays are computed in code and don't need an entry here.
+
+Format: `- MM-DD — Description [for: gary|shannon|both]`
+Tag omitted = `both`.
+
+<!-- - 03-14 — Shannon's birthday -->
