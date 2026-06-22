@@ -1,0 +1,9 @@
+# Occasion contacts (add-on config)
+
+Copy this file to `/share/daily_briefing/occasion_contacts.md` on first
+install. People to remember to text on a given occasion.
+
+Format: `- Occasion: Name (handle) [for: gary|shannon|both]`
+Tag omitted = `gary`.
+
+<!-- - Veterans Day: Austin McCullar (+18322651683) -->
