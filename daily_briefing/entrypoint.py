@@ -1,5 +1,4 @@
 import json
-import os
 import time
 from datetime import datetime, timedelta
 
@@ -8,15 +7,21 @@ from briefing.ha_client import HomeAssistantClient
 from briefing.markdown_sources import parse_key_dates, parse_occasion_contacts
 
 DATA_DIR = "/share/daily_briefing"
+OPTIONS_PATH = "/data/options.json"
 
 
 def load_config():
+    # Read the add-on's options directly rather than via bashio env-var
+    # export — bashio::config doesn't cleanly serialize the nested
+    # "people" list-of-objects to a shell-safe JSON string.
+    with open(OPTIONS_PATH, encoding="utf-8") as f:
+        options = json.load(f)
     return {
-        "ha_url": os.environ["HA_URL"],
-        "ha_token": os.environ["HA_TOKEN"],
-        "todo_entity": os.environ.get("TODO_ENTITY", "todo.tablet_tasks"),
-        "refresh_time": os.environ.get("REFRESH_TIME", "06:00"),
-        "people": json.loads(os.environ.get("PEOPLE_JSON", "[]")),
+        "ha_url": options["ha_url"],
+        "ha_token": options["ha_token"],
+        "todo_entity": options.get("todo_entity", "todo.tablet_tasks"),
+        "refresh_time": options.get("refresh_time", "06:00"),
+        "people": options.get("people", []),
     }
 
 
