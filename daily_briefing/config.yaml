@@ -12,7 +12,7 @@ options:
   ha_url: "http://homeassistant.local:8123"
   ha_token: ""
   todo_entity: "todo.tablet_tasks"
-  refresh_time: "06:00"
+  refresh_time: "04:45"
   people:
     - name: "gary"
       calendar_entity: "calendar.gary_myhmbiz_com"

@@ -141,8 +141,8 @@ copy only if `/today` is actually being used that day). See
 
 ## Refresh schedule
 
-Sensors refresh **once daily at a fixed early-morning time** (time TBD,
-likely ~6am) rather than continuously polling like
+Sensors refresh **once daily at a fixed early-morning time — 04:45,
+matching Gary's actual day start** — rather than continuously polling like
 [[projects/jeeves-agent/CLAUDE|jeeves-agent]]'s watcher loop — a daily
 briefing doesn't need to react in real time, and a fixed refresh keeps the
 add-on simple (no poll-loop/diffing logic to maintain).
