@@ -20,6 +20,13 @@ def _todos_for_person(items, person):
     ]
 
 
+def _event_sort_key(event):
+    start = event.get("start") or {}
+    # All-day events carry "date" (no time) — sort them before timed events
+    # on the same day by treating them as midnight.
+    return start.get("dateTime") or f"{start.get('date', '')}T00:00:00"
+
+
 def build_briefing(ha_client, person, todo_entity, key_dates, occasion_contacts, today=None):
     """Assemble one person's briefing. Returns (state, attributes) for
     ha_client.set_state.
@@ -35,14 +42,17 @@ def build_briefing(ha_client, person, todo_entity, key_dates, occasion_contacts,
     events = ha_client.get_calendar_events(
         person["calendar_entity"], day_start.isoformat(), day_end.isoformat()
     )
-    events_out = [
-        {
-            "summary": e.get("summary", ""),
-            "start": e.get("start"),
-            "location": e.get("location", ""),
-        }
-        for e in events
-    ]
+    events_out = sorted(
+        (
+            {
+                "summary": e.get("summary", ""),
+                "start": e.get("start"),
+                "location": e.get("location", ""),
+            }
+            for e in events
+        ),
+        key=_event_sort_key,
+    )
 
     occasion = standard_holiday(today)
     mmdd = today.strftime("%m-%d")
